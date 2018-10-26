@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Story = require("../models/Story");
 const {ensureAuthenticated, ensureGuest} = require("../helpers/auth");
 
 router.get("/", ensureGuest, (req, res) => {
@@ -11,7 +12,13 @@ router.get("/about", (req, res) => {
 });
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
-  res.render("index/dashboard");
+  if(req.user) {
+    Story.find({user: req.user._id})
+      .populate('user')
+      .then((stories) => {
+        res.render("index/dashboard", {stories: stories});
+    });
+  }
 });
 
 module.exports = router;
