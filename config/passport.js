@@ -13,8 +13,41 @@ module.exports = function(passport) {
         proxy: true
       },
       (accessToken, refreshToken, profile, done) => {
-        console.log(profile)
+        const userImage = profile.photos[0].value.substring(0, profile.photos.shift().value.indexOf("?"));
+        const newUser = {
+          googleTD: profile.id,
+          displayName: profile.displayName,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          email: profile.emails[0].value,
+          image: userImage,
+          gender: profile.gender
+        };
+        User.findOne({ googleTD: newUser.googleTD })
+          .then(user => {
+            if (user) {
+              done(null, user);
+            } else {
+              new User(newUser)
+                .save()
+                .then(user => done(null, user))
+                .catch(err => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     )
   );
+
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => done(null, user));
+  });
 };
