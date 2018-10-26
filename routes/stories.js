@@ -15,6 +15,17 @@ router.get("/user/:userId", (req, res) => {
     });
 });
 
+// stories for logged in user
+router.get("/my", ensureAuthenticated, (req, res) => {
+  Story.find({ user: req.user.id })
+    .populate("user")
+    .then(stories => {
+      if (stories) {
+        res.render("stories/index", { stories: stories });
+      }
+    });
+});
+
 
 // get all public stories
 router.get("/", (req, res) => {
