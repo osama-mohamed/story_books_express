@@ -7,6 +7,7 @@ const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 router.get("/", (req, res) => {
   Story.find({ status: "public" })
     .populate("user")
+    .sort({date: 'desc'})
     .then(stories => {
       res.render("stories/index", { stories: stories });
     });
@@ -45,7 +46,7 @@ router.post("/", ensureAuthenticated, (req, res) => {
     body: req.body.body,
     status: req.body.status,
     allowComments: allowComments,
-    user: req.user._id
+    user: req.user.id
   };
   new Story(newStory).save().then(story => {
     res.redirect(`/stories/show/${story._id}`);
@@ -55,7 +56,9 @@ router.post("/", ensureAuthenticated, (req, res) => {
 // load edit story form
 router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   Story.findOne({ _id: req.params.id }).then(story => {
-    if (story) {
+    if (story.user != req.user.id) {
+      res.redirect('/stories');
+    } else {
       res.render("stories/edit", { story: story });
     }
   });
@@ -98,7 +101,7 @@ router.post("/comment/:id", ensureAuthenticated, (req, res) => {
     if (story) {
       const newComment = {
         commentBody: req.body.commentBody,
-        commentUser: req.user._id
+        commentUser: req.user.id
       }
       story.comments.unshift(newComment);
       story.save().then(story => {

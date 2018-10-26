@@ -13,7 +13,7 @@ router.get("/about", (req, res) => {
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
   if(req.user) {
-    Story.find({user: req.user._id})
+    Story.find({user: req.user.id})
       .populate('user')
       .then((stories) => {
         res.render("index/dashboard", {stories: stories});

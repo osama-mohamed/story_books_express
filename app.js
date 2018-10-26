@@ -16,7 +16,8 @@ const {
   truncate,
   stripTags,
   formatDate,
-  select
+  select,
+  editIcon
 } = require('./helpers/hbs');
 
 
@@ -30,7 +31,8 @@ app.engine(
       truncate: truncate,
       stripTags: stripTags,
       formatDate: formatDate,
-      select: select
+      select: select,
+      editIcon: editIcon
     },
     defaultLayout: "main"
   })
