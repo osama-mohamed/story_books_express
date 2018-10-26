@@ -8,7 +8,8 @@
         <th>Title</th>
         <th>Date</th>
         <th>Status</th>
-        <th></th>
+        <th>Allow Comments</th>
+        <th>Controls</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,10 @@
           <td><a href="/stories/show/{{id}}">{{title}}</a></td>
           <td>{{formatDate date 'MMMM Do YYYY'}}</td>
           <td><span class="dash-status">{{status}}</span></td>
+          <td>
+            <input type="checkbox" class="filled-in" {{#if allowComments}} checked="checked" {{/if}}/>
+            <label></label>
+          </td>
           <td>
             <a href="/stories/edit/{{id}}" class="btn left-align">
               <i class="fa fa-pencil"></i>

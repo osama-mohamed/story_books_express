@@ -5,22 +5,24 @@ const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
 // get all public stories
 router.get("/", (req, res) => {
-  Story.find({status: 'public'})
-    .populate('user')
-    .then((stories) => {
-    res.render("stories/index", {stories: stories});
-  });
+  Story.find({ status: "public" })
+    .populate("user")
+    .then(stories => {
+      res.render("stories/index", { stories: stories });
+    });
 });
 
 // get single story
 router.get("/show/:id", (req, res) => {
-  Story.findOne({_id: req.params.id}).populate('user').then((story) => {
-    if(story) {
-      res.render('stories/show', {story: story});
-    // } else {
-    //   res.render('stories/show', {story: story});
-    }
-  });
+  Story.findOne({ _id: req.params.id })
+    .populate("user")
+    .then(story => {
+      if (story) {
+        res.render("stories/show", { story: story });
+        // } else {
+        //   res.render('stories/show', {story: story});
+      }
+    });
 });
 
 // load add new story form
@@ -36,7 +38,7 @@ router.post("/", ensureAuthenticated, (req, res) => {
   } else {
     allowComments = false;
   }
-  
+
   const newStory = {
     title: req.body.title,
     body: req.body.body,
@@ -51,6 +53,15 @@ router.post("/", ensureAuthenticated, (req, res) => {
 
 // load edit story form
 router.get("/edit/:id", ensureAuthenticated, (req, res) => {
+  Story.findOne({ _id: req.params.id }).then(story => {
+    if (story) {
+      res.render("stories/edit", { story: story });
+    }
+  });
+});
+
+// save edited story
+router.post("/edit/:id", ensureAuthenticated, (req, res) => {
   res.render("stories/edit");
 });
 

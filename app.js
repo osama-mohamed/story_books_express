@@ -14,7 +14,8 @@ require('./config/passport')(passport);
 const {
   truncate,
   stripTags,
-  formatDate
+  formatDate,
+  select
 } = require('./helpers/hbs');
 
 
@@ -27,7 +28,8 @@ app.engine(
     helpers: {
       truncate: truncate,
       stripTags: stripTags,
-      formatDate: formatDate
+      formatDate: formatDate,
+      select: select
     },
     defaultLayout: "main"
   })
