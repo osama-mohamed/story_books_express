@@ -3,6 +3,19 @@ const router = express.Router();
 const Story = require("../models/Story");
 const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
+
+// stories of a user
+router.get("/user/:userId", (req, res) => {
+  Story.find({ user: req.params.userId, status: 'public' })
+    .populate("user")
+    .then(stories => {
+      if (stories) {
+        res.render("stories/index", { stories: stories });
+      }
+    });
+});
+
+
 // get all public stories
 router.get("/", (req, res) => {
   Story.find({ status: "public" })
