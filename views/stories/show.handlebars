@@ -7,6 +7,26 @@
         {{{story.body}}}
       </div>
     </div>
+
+    {{#if story.allowComments}}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">comments</span>
+          {{#if user}}
+            <form action="/stories/comment/{{story._id}}" method="POST">
+              <div class="input-field">
+                <textarea name="commentBody" id="commentBody" class="materialize-textarea"></textarea>
+                <label for="commentBody">Add Comment</label>
+              </div>
+              <input type="submit" value="Comment" class="btn">
+            </form>
+          {{else}}
+            <p>Please <a href="/auth/google">log in</a> to leave a comment</p>
+          {{/if}}
+          
+        </div>
+      </div>
+    {{/if}}
   </div>
   <div class="col s12 m4">
     <div class="card center-align">

@@ -91,4 +91,22 @@ router.delete("/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+// comment on a story
+router.post("/comment/:id", ensureAuthenticated, (req, res) => {
+  Story.findOne({ _id: req.params.id }).then(story => {
+    if (story) {
+      const newComment = {
+        commentBody: req.body.commentBody,
+        commentUser: req.user._id
+      }
+      story.comments.unshift(newComment);
+      story.save().then(story => {
+        if (story) {
+          res.redirect(`/stories/show/${story._id}`);
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;
