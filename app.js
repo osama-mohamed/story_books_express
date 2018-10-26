@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require("passport");
@@ -37,6 +38,7 @@ app.engine(
 app.set("view engine", "handlebars");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(methodOverride("_method"));
 
 
 app.use(cookieParser());

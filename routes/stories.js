@@ -61,8 +61,25 @@ router.get("/edit/:id", ensureAuthenticated, (req, res) => {
 });
 
 // save edited story
-router.post("/edit/:id", ensureAuthenticated, (req, res) => {
-  res.render("stories/edit");
+router.put("/:id", ensureAuthenticated, (req, res) => {
+  Story.findOne({ _id: req.params.id }).then(story => {
+    if (story) {
+      let allowComments;
+      if (req.body.allowComments) {
+        allowComments = true;
+      } else {
+        allowComments = false;
+      }
+
+      story.title= req.body.title;
+      story.body= req.body.body;
+      story.status= req.body.status;
+      story.allowComments= allowComments;
+      story.save().then(story => {
+        res.redirect(`/stories/show/${story._id}`);
+      });
+    }
+  });
 });
 
 module.exports = router;
