@@ -48,8 +48,10 @@ app.use((req, res, next) => {
 
 const AuthRoutes = require('./routes/auth');
 const IndexRoutes = require('./routes/index');
+const StoriesRoutes = require('./routes/stories');
 app.use('/auth', AuthRoutes);
 app.use('/', IndexRoutes);
+app.use('/stories', StoriesRoutes);
 
 
 

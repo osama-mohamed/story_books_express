@@ -7,15 +7,21 @@
   <title>Story Books</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/img/i.ico">
 </head>
 <body>
 
   {{> _header}}
+  {{#if user}}
+    {{> _add-story-btn}}
+  {{/if}}
   <main>
     <div class="container">
       {{{body}}}
     </div>
   </main>
+  {{> _footer}}
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script>
