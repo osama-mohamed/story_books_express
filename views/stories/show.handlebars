@@ -23,9 +23,22 @@
           {{else}}
             <p>Please <a href="/auth/google">log in</a> to leave a comment</p>
           {{/if}}
-          
         </div>
       </div>
+
+      {{#each story.comments}}
+        <div class="card">
+          <div class="card-content">
+            <h5>{{commentBody}}</h5>
+            <div class="chip">
+              <img src="{{commentUser.image}}" alt="{{commentUser.firstName}} {{commentUser.lastName}} Profile Image">
+              {{commentUser.firstName}} {{commentUser.lastName}}
+            </div>
+            <br>
+            <small>Posted: {{formatDate commentDate "MMMM Do YYYY"}}</small>
+          </div>
+        </div>
+      {{/each}}
     {{/if}}
   </div>
   <div class="col s12 m4">
