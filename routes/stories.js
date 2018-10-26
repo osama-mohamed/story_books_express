@@ -3,6 +3,7 @@ const router = express.Router();
 const Story = require("../models/Story");
 const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
+// get all public stories
 router.get("/", (req, res) => {
   Story.find({status: 'public'})
     .populate('user')
@@ -11,15 +12,23 @@ router.get("/", (req, res) => {
   });
 });
 
+// get single story
 router.get("/show/:id", (req, res) => {
-  res.render("stories/show");
+  Story.findOne({_id: req.params.id}).populate('user').then((story) => {
+    if(story) {
+      res.render('stories/show', {story: story});
+    // } else {
+    //   res.render('stories/show', {story: story});
+    }
+  });
 });
 
-
+// load add new story form
 router.get("/add", ensureAuthenticated, (req, res) => {
   res.render("stories/add");
 });
 
+// save new story
 router.post("/", ensureAuthenticated, (req, res) => {
   let allowComments;
   if (req.body.allowComments) {
@@ -40,7 +49,7 @@ router.post("/", ensureAuthenticated, (req, res) => {
   });
 });
 
-
+// load edit story form
 router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   res.render("stories/edit");
 });
