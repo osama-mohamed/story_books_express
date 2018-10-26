@@ -4,7 +4,12 @@ const Story = require("../models/Story");
 const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
 router.get("/", (req, res) => {
-  res.render("stories/index");
+  Story.find({status: 'public'})
+    .populate('user')
+    .then((stories) => {
+    console.log(stories);
+    res.render("stories/index", {stories: stories});
+  });
 });
 
 router.get("/show/:id", (req, res) => {
