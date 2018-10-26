@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const {ensureAuthenticated, ensureGuest} = require("../helpers/auth");
 
 
 router.get("/", (req, res) => {
@@ -10,11 +11,11 @@ router.get("/show/:id", (req, res) => {
   res.render("stories/show");
 });
 
-router.get("/add", (req, res) => {
+router.get("/add", ensureAuthenticated, (req, res) => {
   res.render("stories/add");
 });
 
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   res.render("stories/edit");
 });
 
