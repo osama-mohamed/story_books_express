@@ -11,6 +11,10 @@ const port = process.env.PORT || 3000;
 require("dotenv").config();
 require('./config/database');
 require('./config/passport')(passport);
+const {
+  truncate,
+  stripTags
+} = require('./helpers/hbs');
 
 
 
@@ -19,6 +23,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine(
   "handlebars",
   exphbs({
+    helpers: {
+      truncate: truncate,
+      stripTags: stripTags
+    },
     defaultLayout: "main"
   })
 );

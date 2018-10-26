@@ -7,7 +7,6 @@ router.get("/", (req, res) => {
   Story.find({status: 'public'})
     .populate('user')
     .then((stories) => {
-    console.log(stories);
     res.render("stories/index", {stories: stories});
   });
 });
