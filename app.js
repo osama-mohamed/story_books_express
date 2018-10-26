@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -15,6 +16,13 @@ require('./config/passport')(passport);
 
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -29,15 +37,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-const AuthRoutes = require('./routes/auth');
-app.use('/auth', AuthRoutes);
-
-
-
-
-app.get("/", (req, res) => {
-  res.send("it works!");
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
 });
+
+
+
+
+
+const AuthRoutes = require('./routes/auth');
+const IndexRoutes = require('./routes/index');
+app.use('/auth', AuthRoutes);
+app.use('/', IndexRoutes);
+
 
 
 
