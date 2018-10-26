@@ -1,6 +1,7 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 const keys = require("./keys");
+const User = require("../models/User");
 
 module.exports = function(passport) {
   passport.use(
@@ -12,7 +13,7 @@ module.exports = function(passport) {
         proxy: true
       },
       (accessToken, refreshToken, profile, done) => {
-        
+        console.log(profile)
       }
     )
   );
