@@ -82,4 +82,13 @@ router.put("/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+// delete story
+router.delete("/:id", ensureAuthenticated, (req, res) => {
+  Story.deleteOne({ _id: req.params.id }).then(story => {
+    if (story) {
+      res.redirect("/dashboard");
+    }
+  });
+});
+
 module.exports = router;
