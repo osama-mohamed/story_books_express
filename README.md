@@ -14,6 +14,7 @@
 * Show private story by the owner only
 * Show public stories
 * Show all public stories from a specific user
+* Add comment on a story if story owner allow comments on it
 * User dashboard to show all user stories include (Pubblic, Private, Unpublished) stories
 * User login with google account (passport google auth)
 * User logout
