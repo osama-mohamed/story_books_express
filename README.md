@@ -1,6 +1,6 @@
 # [Story Books](https://storybooks-node-osama-mohamed.herokuapp.com) By Express, Mongoose.
 
-[<img src="https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png" width="200" title="Story Books Express" >](https://storybooks-node-osama-mohamed.herokuapp.com)
+[<img src="https://nodejs.org/static/images/logo.svg" width="200" title="Story Books Express" >](https://storybooks-node-osama-mohamed.herokuapp.com)
 [<img src="https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg" width="250" title="Story Books Express" >](https://storybooks-node-osama-mohamed.herokuapp.com)
 
 ## For live preview :
@@ -44,7 +44,7 @@ Now the project is running at `http://localhost:3000`.
 For detailed explanation on how project work, read the [Node Docs](https://nodejs.org/en/docs/), [Express Docs](http://expressjs.com/en/guide/routing.html) and [MongoDB Docs](https://docs.mongodb.com/)
 
 ## Developer
-This project made by [Osama Mohamed](https://www.facebook.com/osama.mohamed.ms)
+This project made by [Osama Mohamed](https://www.linkedin.com/in/osama-mohamed-ms/)
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT)
